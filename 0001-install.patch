@@ -1,0 +1,72 @@
+From 7ebeab2de221d2de26e66d3a1564741d6ee5082c Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Sat, 10 Aug 2024 15:14:45 +0800
+Subject: [PATCH] install
+
+---
+ CMakeLists.txt  | 18 +++++++++++++++++-
+ mous-qt.desktop | 11 +++++++++++
+ 2 files changed, 28 insertions(+), 1 deletion(-)
+ create mode 100644 mous-qt.desktop
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 60b1edb..3a8d647 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,7 +46,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+ endif()
+ 
+ set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Install path prefix")
+-set(CMAKE_INSTALL_RPATH "\${CMAKE_INSTALL_PREFIX}/lib:\${CMAKE_INSTALL_PREFIX}/bin")
++set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+ add_definitions(-DCMAKE_INSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
+ 
+ #==== Detect ====#
+@@ -273,6 +273,13 @@ if(WITH_APP_QT5)
+     install(
+         CODE "file(GLOB TRANSLATION_FILES \"${PROJECT_BINARY_DIR}/*.qm\")"
+         CODE "file(INSTALL \${TRANSLATION_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/mous/qt)"
++install(FILES apps/qt5/resource/next.png
++        DESTINATION share/icons)
++
++
++install(FILES mous-qt.desktop
++            DESTINATION share/applications)
++
+     )
+ endif()
+ 
+@@ -505,3 +512,12 @@ message(STATUS "----- Disabled -----")
+ print_options("APP" FALSE)
+ print_options("PLUGIN" FALSE)
+ message(STATUS "--------------------")
++
++
++
++install(FILES apps/qt5/resource/next.png
++        DESTINATION share/icons)
++
++
++install(FILES mous-qt.desktop
++            DESTINATION share/applications)
+\ No newline at end of file
+diff --git a/mous-qt.desktop b/mous-qt.desktop
+new file mode 100644
+index 0000000..39b0aeb
+--- /dev/null
++++ b/mous-qt.desktop
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Categories=Accessibility;Qt;Utility;
++Exec=mous-qt
++Name=mous-qt
++Name[zh_CN]=mous-qt
++Icon=next
++StartupNotify=false
++Terminal=false
++Type=Application
++GenericName=mous-qt
++Version=2.0.1
+-- 
+2.43.4
+
